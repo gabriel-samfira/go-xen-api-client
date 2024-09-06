@@ -42,7 +42,7 @@ type SMRecord struct {
 	// capabilities of the SM plugin
 	Capabilities []string
 	// capabilities of the SM plugin, with capability version numbers
-	Features map[string]int
+	Features map[string]int64
 	// additional configuration
 	OtherConfig map[string]string
 	// filename of the storage driver
@@ -207,7 +207,7 @@ func (_class SMClass) GetOtherConfig(sessionID SessionRef, self SMRef) (_retval 
 }
 
 // GetFeatures Get the features field of the given SM.
-func (_class SMClass) GetFeatures(sessionID SessionRef, self SMRef) (_retval map[string]int, _err error) {
+func (_class SMClass) GetFeatures(sessionID SessionRef, self SMRef) (_retval map[string]int64, _err error) {
 	_method := "SM.get_features"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

@@ -30,7 +30,7 @@ type PVSCacheStorageRecord struct {
 	// The PVS_site for which this object defines the storage
 	Site PVSSiteRef
 	// The size of the cache VDI (in bytes)
-	Size int
+	Size int64
 	// The VDI used for caching
 	VDI VDIRef
 }
@@ -92,7 +92,7 @@ func (_class PVSCacheStorageClass) GetVDI(sessionID SessionRef, self PVSCacheSto
 }
 
 // GetSize Get the size field of the given PVS_cache_storage.
-func (_class PVSCacheStorageClass) GetSize(sessionID SessionRef, self PVSCacheStorageRef) (_retval int, _err error) {
+func (_class PVSCacheStorageClass) GetSize(sessionID SessionRef, self PVSCacheStorageRef) (_retval int64, _err error) {
 	_method := "PVS_cache_storage.get_size"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

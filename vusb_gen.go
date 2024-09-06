@@ -25,7 +25,7 @@ type VusbOperations string
 const (
 	// Attempting to attach this VUSB to a VM
 	VusbOperationsAttach VusbOperations = "attach"
-	// Attempting to plug this VUSB into a VM
+	// Attempting to plug this VUSB int64o a VM
 	VusbOperationsPlug VusbOperations = "plug"
 	// Attempting to hot unplug this VUSB
 	VusbOperationsUnplug VusbOperations = "unplug"

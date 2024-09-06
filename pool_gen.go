@@ -53,9 +53,9 @@ type PoolRecord struct {
 	// HA statefile VDIs in use
 	HaStatefiles []string
 	// Number of host failures to tolerate before the Pool is declared to be overcommitted
-	HaHostFailuresToTolerate int
+	HaHostFailuresToTolerate int64
 	// Number of future host failures we have managed to find a plan for. Once this reaches zero any future host failures will cause the failure of protected VMs.
-	HaPlanExistsFor int
+	HaPlanExistsFor int64
 	// If set to false then operations which would cause the Pool to become overcommitted will be blocked.
 	HaAllowOvercommit bool
 	// True if the Pool is considered to be overcommitted i.e. if there exist insufficient physical resources to tolerate the configured number of host failures
@@ -496,8 +496,8 @@ func (_class PoolClass) CertificateInstall(sessionID SessionRef, name string, ce
 	return
 }
 
-// SendTestPost Send the given body to the given host and port, using HTTPS, and print the response.  This is used for debugging the SSL layer.
-func (_class PoolClass) SendTestPost(sessionID SessionRef, host string, port int, body string) (_retval string, _err error) {
+// SendTestPost Send the given body to the given host and port, using HTTPS, and print64 the response.  This is used for debugging the SSL layer.
+func (_class PoolClass) SendTestPost(sessionID SessionRef, host string, port int64, body string) (_retval string, _err error) {
 	_method := "pool.send_test_post"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -703,7 +703,7 @@ func (_class PoolClass) CreateNewBlob(sessionID SessionRef, pool PoolRef, name s
 }
 
 // SetHaHostFailuresToTolerate Set the maximum number of host failures to consider in the HA VM restart planner
-func (_class PoolClass) SetHaHostFailuresToTolerate(sessionID SessionRef, self PoolRef, value int) (_err error) {
+func (_class PoolClass) SetHaHostFailuresToTolerate(sessionID SessionRef, self PoolRef, value int64) (_err error) {
 	_method := "pool.set_ha_host_failures_to_tolerate"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -745,7 +745,7 @@ func (_class PoolClass) HaComputeVMFailoverPlan(sessionID SessionRef, failedHost
 }
 
 // HaComputeHypotheticalMaxHostFailuresToTolerate Returns the maximum number of host failures we could tolerate before we would be unable to restart the provided VMs
-func (_class PoolClass) HaComputeHypotheticalMaxHostFailuresToTolerate(sessionID SessionRef, configuration map[VMRef]string) (_retval int, _err error) {
+func (_class PoolClass) HaComputeHypotheticalMaxHostFailuresToTolerate(sessionID SessionRef, configuration map[VMRef]string) (_retval int64, _err error) {
 	_method := "pool.ha_compute_hypothetical_max_host_failures_to_tolerate"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -764,7 +764,7 @@ func (_class PoolClass) HaComputeHypotheticalMaxHostFailuresToTolerate(sessionID
 }
 
 // HaComputeMaxHostFailuresToTolerate Returns the maximum number of host failures we could tolerate before we would be unable to restart configured VMs
-func (_class PoolClass) HaComputeMaxHostFailuresToTolerate(sessionID SessionRef) (_retval int, _err error) {
+func (_class PoolClass) HaComputeMaxHostFailuresToTolerate(sessionID SessionRef) (_retval int64, _err error) {
 	_method := "pool.ha_compute_max_host_failures_to_tolerate"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -779,7 +779,7 @@ func (_class PoolClass) HaComputeMaxHostFailuresToTolerate(sessionID SessionRef)
 }
 
 // HaFailoverPlanExists Returns true if a VM failover plan exists for up to 'n' host failures
-func (_class PoolClass) HaFailoverPlanExists(sessionID SessionRef, n int) (_retval bool, _err error) {
+func (_class PoolClass) HaFailoverPlanExists(sessionID SessionRef, n int64) (_retval bool, _err error) {
 	_method := "pool.ha_failover_plan_exists"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -798,7 +798,7 @@ func (_class PoolClass) HaFailoverPlanExists(sessionID SessionRef, n int) (_retv
 }
 
 // HaPreventRestartsFor When this call returns the VM restart logic will not run for the requested number of seconds. If the argument is zero then the restart thread is immediately unblocked
-func (_class PoolClass) HaPreventRestartsFor(sessionID SessionRef, seconds int) (_err error) {
+func (_class PoolClass) HaPreventRestartsFor(sessionID SessionRef, seconds int64) (_err error) {
 	_method := "pool.ha_prevent_restarts_for"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -872,7 +872,7 @@ func (_class PoolClass) EnableHa(sessionID SessionRef, heartbeatSrs []SRRef, con
 //
 // Errors:
 //  VLAN_TAG_INVALID - You tried to create a VLAN, but the tag you gave was invalid -- it must be between 0 and 4094.  The parameter echoes the VLAN tag you gave.
-func (_class PoolClass) CreateVLANFromPIF(sessionID SessionRef, pif PIFRef, network NetworkRef, vlan int) (_retval []PIFRef, _err error) {
+func (_class PoolClass) CreateVLANFromPIF(sessionID SessionRef, pif PIFRef, network NetworkRef, vlan int64) (_retval []PIFRef, _err error) {
 	_method := "pool.create_VLAN_from_PIF"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -925,7 +925,7 @@ func (_class PoolClass) ManagementReconfigure(sessionID SessionRef, network Netw
 //
 // Errors:
 //  VLAN_TAG_INVALID - You tried to create a VLAN, but the tag you gave was invalid -- it must be between 0 and 4094.  The parameter echoes the VLAN tag you gave.
-func (_class PoolClass) CreateVLAN(sessionID SessionRef, device string, network NetworkRef, vlan int) (_retval []PIFRef, _err error) {
+func (_class PoolClass) CreateVLAN(sessionID SessionRef, device string, network NetworkRef, vlan int64) (_retval []PIFRef, _err error) {
 	_method := "pool.create_VLAN"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1924,7 +1924,7 @@ func (_class PoolClass) GetHaAllowOvercommit(sessionID SessionRef, self PoolRef)
 }
 
 // GetHaPlanExistsFor Get the ha_plan_exists_for field of the given pool.
-func (_class PoolClass) GetHaPlanExistsFor(sessionID SessionRef, self PoolRef) (_retval int, _err error) {
+func (_class PoolClass) GetHaPlanExistsFor(sessionID SessionRef, self PoolRef) (_retval int64, _err error) {
 	_method := "pool.get_ha_plan_exists_for"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1943,7 +1943,7 @@ func (_class PoolClass) GetHaPlanExistsFor(sessionID SessionRef, self PoolRef) (
 }
 
 // GetHaHostFailuresToTolerate Get the ha_host_failures_to_tolerate field of the given pool.
-func (_class PoolClass) GetHaHostFailuresToTolerate(sessionID SessionRef, self PoolRef) (_retval int, _err error) {
+func (_class PoolClass) GetHaHostFailuresToTolerate(sessionID SessionRef, self PoolRef) (_retval int64, _err error) {
 	_method := "pool.get_ha_host_failures_to_tolerate"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

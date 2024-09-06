@@ -29,7 +29,7 @@ const (
 	StorageOperationsDestroy StorageOperations = "destroy"
 	// Forgetting about SR
 	StorageOperationsForget StorageOperations = "forget"
-	// Plugging a PBD into this SR
+	// Plugging a PBD int64o this SR
 	StorageOperationsPlug StorageOperations = "plug"
 	// Unplugging a PBD from this SR
 	StorageOperationsUnplug StorageOperations = "unplug"
@@ -38,7 +38,7 @@ const (
 	// Creating a new VDI
 	StorageOperationsVdiCreate StorageOperations = "vdi_create"
 	// Introducing a new VDI
-	StorageOperationsVdiIntroduce StorageOperations = "vdi_introduce"
+	StorageOperationsVdiIntroduce StorageOperations = "vdi_int64roduce"
 	// Destroying a VDI
 	StorageOperationsVdiDestroy StorageOperations = "vdi_destroy"
 	// Resizing a VDI
@@ -81,11 +81,11 @@ type SRRecord struct {
 	// describes how particular hosts can see this storage repository
 	PBDs []PBDRef
 	// sum of virtual_sizes of all VDIs in this storage repository (in bytes)
-	VirtualAllocation int
+	VirtualAllocation int64
 	// physical space currently utilised on this storage repository (in bytes). Note that for sparse disk formats, physical_utilisation may be less than virtual_allocation
-	PhysicalUtilisation int
+	PhysicalUtilisation int64
 	// total physical size of the repository (in bytes)
-	PhysicalSize int
+	PhysicalSize int64
 	// type of the storage repository
 	Type string
 	// the type of the SR's content, if required (e.g. ISOs)
@@ -102,7 +102,7 @@ type SRRecord struct {
 	Blobs map[string]BlobRef
 	// True if this SR is assigned to be the local cache for its host
 	LocalCacheEnabled bool
-	// The disaster recovery task which introduced this SR
+	// The disaster recovery task which int64roduced this SR
 	IntroducedBy DRTaskRef
 	// True if the SR is using aggregated local storage
 	Clustered bool
@@ -288,7 +288,7 @@ func (_class SRClass) AssertCanHostHaStatefile(sessionID SessionRef, sr SRRef) (
 }
 
 // SetPhysicalUtilisation Sets the SR's physical_utilisation field
-func (_class SRClass) SetPhysicalUtilisation(sessionID SessionRef, self SRRef, value int) (_err error) {
+func (_class SRClass) SetPhysicalUtilisation(sessionID SessionRef, self SRRef, value int64) (_err error) {
 	_method := "SR.set_physical_utilisation"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -307,7 +307,7 @@ func (_class SRClass) SetPhysicalUtilisation(sessionID SessionRef, self SRRef, v
 }
 
 // SetVirtualAllocation Sets the SR's virtual_allocation field
-func (_class SRClass) SetVirtualAllocation(sessionID SessionRef, self SRRef, value int) (_err error) {
+func (_class SRClass) SetVirtualAllocation(sessionID SessionRef, self SRRef, value int64) (_err error) {
 	_method := "SR.set_virtual_allocation"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -326,7 +326,7 @@ func (_class SRClass) SetVirtualAllocation(sessionID SessionRef, self SRRef, val
 }
 
 // SetPhysicalSize Sets the SR's physical_size field
-func (_class SRClass) SetPhysicalSize(sessionID SessionRef, self SRRef, value int) (_err error) {
+func (_class SRClass) SetPhysicalSize(sessionID SessionRef, self SRRef, value int64) (_err error) {
 	_method := "SR.set_physical_size"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -545,7 +545,7 @@ func (_class SRClass) Destroy(sessionID SessionRef, sr SRRef) (_err error) {
 }
 
 // Make Create a new Storage Repository on disk. This call is deprecated: use SR.create instead.
-func (_class SRClass) Make(sessionID SessionRef, host HostRef, deviceConfig map[string]string, physicalSize int, nameLabel string, nameDescription string, atype string, contentType string, smConfig map[string]string) (_retval string, _err error) {
+func (_class SRClass) Make(sessionID SessionRef, host HostRef, deviceConfig map[string]string, physicalSize int64, nameLabel string, nameDescription string, atype string, contentType string, smConfig map[string]string) (_retval string, _err error) {
 	_method := "SR.make"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -591,9 +591,9 @@ func (_class SRClass) Make(sessionID SessionRef, host HostRef, deviceConfig map[
 	return
 }
 
-// Introduce Introduce a new Storage Repository into the managed system
+// Introduce Introduce a new Storage Repository int64o the managed system
 func (_class SRClass) Introduce(sessionID SessionRef, uuid string, nameLabel string, nameDescription string, atype string, contentType string, shared bool, smConfig map[string]string) (_retval SRRef, _err error) {
-	_method := "SR.introduce"
+	_method := "SR.int64roduce"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return
@@ -634,11 +634,11 @@ func (_class SRClass) Introduce(sessionID SessionRef, uuid string, nameLabel str
 	return
 }
 
-// Create Create a new Storage Repository and introduce it into the managed system, creating both SR record and PBD record to attach it to current host (with specified device_config parameters)
+// Create Create a new Storage Repository and int64roduce it int64o the managed system, creating both SR record and PBD record to attach it to current host (with specified device_config parameters)
 //
 // Errors:
 //  SR_UNKNOWN_DRIVER - The SR could not be connected because the driver was not recognised.
-func (_class SRClass) Create(sessionID SessionRef, host HostRef, deviceConfig map[string]string, physicalSize int, nameLabel string, nameDescription string, atype string, contentType string, shared bool, smConfig map[string]string) (_retval SRRef, _err error) {
+func (_class SRClass) Create(sessionID SessionRef, host HostRef, deviceConfig map[string]string, physicalSize int64, nameLabel string, nameDescription string, atype string, contentType string, shared bool, smConfig map[string]string) (_retval SRRef, _err error) {
 	_method := "SR.create"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -905,9 +905,9 @@ func (_class SRClass) GetClustered(sessionID SessionRef, self SRRef) (_retval bo
 	return
 }
 
-// GetIntroducedBy Get the introduced_by field of the given SR.
+// GetIntroducedBy Get the int64roduced_by field of the given SR.
 func (_class SRClass) GetIntroducedBy(sessionID SessionRef, self SRRef) (_retval DRTaskRef, _err error) {
-	_method := "SR.get_introduced_by"
+	_method := "SR.get_int64roduced_by"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return
@@ -1077,7 +1077,7 @@ func (_class SRClass) GetType(sessionID SessionRef, self SRRef) (_retval string,
 }
 
 // GetPhysicalSize Get the physical_size field of the given SR.
-func (_class SRClass) GetPhysicalSize(sessionID SessionRef, self SRRef) (_retval int, _err error) {
+func (_class SRClass) GetPhysicalSize(sessionID SessionRef, self SRRef) (_retval int64, _err error) {
 	_method := "SR.get_physical_size"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1096,7 +1096,7 @@ func (_class SRClass) GetPhysicalSize(sessionID SessionRef, self SRRef) (_retval
 }
 
 // GetPhysicalUtilisation Get the physical_utilisation field of the given SR.
-func (_class SRClass) GetPhysicalUtilisation(sessionID SessionRef, self SRRef) (_retval int, _err error) {
+func (_class SRClass) GetPhysicalUtilisation(sessionID SessionRef, self SRRef) (_retval int64, _err error) {
 	_method := "SR.get_physical_utilisation"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1115,7 +1115,7 @@ func (_class SRClass) GetPhysicalUtilisation(sessionID SessionRef, self SRRef) (
 }
 
 // GetVirtualAllocation Get the virtual_allocation field of the given SR.
-func (_class SRClass) GetVirtualAllocation(sessionID SessionRef, self SRRef) (_retval int, _err error) {
+func (_class SRClass) GetVirtualAllocation(sessionID SessionRef, self SRRef) (_retval int64, _err error) {
 	_method := "SR.get_virtual_allocation"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

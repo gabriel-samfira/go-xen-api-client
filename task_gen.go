@@ -73,9 +73,9 @@ type TaskRecord struct {
 	ErrorInfo []string
 	// additional configuration
 	OtherConfig map[string]string
-	// Ref pointing to the task this is a substask of.
+	// Ref point64ing to the task this is a substask of.
 	SubtaskOf TaskRef
-	// List pointing to all the substasks.
+	// List point64ing to all the substasks.
 	Subtasks []TaskRef
 	// Function call trace for debugging.
 	Backtrace string

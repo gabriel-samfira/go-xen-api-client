@@ -47,7 +47,7 @@ type MessageRecord struct {
 	// The name of the message
 	Name string
 	// The message priority, 0 being low priority
-	Priority int
+	Priority int64
 	// The class of the object this message is associated with
 	Cls Cls
 	// The uuid of the object this message is associated with
@@ -214,7 +214,7 @@ func (_class MessageClass) Destroy(sessionID SessionRef, self MessageRef) (_err 
 }
 
 // Create 
-func (_class MessageClass) Create(sessionID SessionRef, name string, priority int, cls Cls, objUUID string, body string) (_retval MessageRef, _err error) {
+func (_class MessageClass) Create(sessionID SessionRef, name string, priority int64, cls Cls, objUUID string, body string) (_retval MessageRef, _err error) {
 	_method := "message.create"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

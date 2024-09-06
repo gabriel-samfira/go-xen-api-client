@@ -27,7 +27,7 @@ type VGPURecord struct {
 	VM VMRef
 	// GPU group used by the vGPU
 	GPUGroup GPUGroupRef
-	// Order in which the devices are plugged into the VM
+	// Order in which the devices are plugged int64o the VM
 	Device string
 	// Reflects whether the virtual device is currently connected to a physical device
 	CurrentlyAttached bool

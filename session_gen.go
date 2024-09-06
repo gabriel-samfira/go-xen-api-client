@@ -29,7 +29,7 @@ type SessionRecord struct {
 	ThisUser UserRef
 	// Timestamp for last time session was active
 	LastActive time.Time
-	// True if this session relates to a intra-pool login, false otherwise
+	// True if this session relates to a int64ra-pool login, false otherwise
 	Pool bool
 	// additional configuration
 	OtherConfig map[string]string

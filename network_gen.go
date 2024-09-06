@@ -41,7 +41,7 @@ type NetworkPurpose string
 const (
 	// Network Block Device service using TLS
 	NetworkPurposeNbd NetworkPurpose = "nbd"
-	// Network Block Device service without integrity or confidentiality: NOT RECOMMENDED
+	// Network Block Device service without int64egrity or confidentiality: NOT RECOMMENDED
 	NetworkPurposeInsecureNbd NetworkPurpose = "insecure_nbd"
 )
 
@@ -61,7 +61,7 @@ type NetworkRecord struct {
 	// list of connected pifs
 	PIFs []PIFRef
 	// MTU in octets
-	MTU int
+	MTU int64
 	// additional configuration
 	OtherConfig map[string]string
 	// name of the bridge corresponding to this network on the local host
@@ -327,7 +327,7 @@ func (_class NetworkClass) SetOtherConfig(sessionID SessionRef, self NetworkRef,
 }
 
 // SetMTU Set the MTU field of the given network.
-func (_class NetworkClass) SetMTU(sessionID SessionRef, self NetworkRef, value int) (_err error) {
+func (_class NetworkClass) SetMTU(sessionID SessionRef, self NetworkRef, value int64) (_err error) {
 	_method := "network.set_MTU"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -536,7 +536,7 @@ func (_class NetworkClass) GetOtherConfig(sessionID SessionRef, self NetworkRef)
 }
 
 // GetMTU Get the MTU field of the given network.
-func (_class NetworkClass) GetMTU(sessionID SessionRef, self NetworkRef) (_retval int, _err error) {
+func (_class NetworkClass) GetMTU(sessionID SessionRef, self NetworkRef) (_retval int64, _err error) {
 	_method := "network.get_MTU"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

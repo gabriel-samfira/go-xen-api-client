@@ -54,7 +54,7 @@ type PoolUpdateRecord struct {
 	// Update version number
 	Version string
 	// Size of the update in bytes
-	InstallationSize int
+	InstallationSize int64
 	// GPG key of the update
 	Key string
 	// What the client should do after this update has been applied.
@@ -195,7 +195,7 @@ func (_class PoolUpdateClass) Precheck(sessionID SessionRef, self PoolUpdateRef,
 
 // Introduce Introduce update VDI
 func (_class PoolUpdateClass) Introduce(sessionID SessionRef, vdi VDIRef) (_retval PoolUpdateRef, _err error) {
-	_method := "pool_update.introduce"
+	_method := "pool_update.int64roduce"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return
@@ -388,7 +388,7 @@ func (_class PoolUpdateClass) GetKey(sessionID SessionRef, self PoolUpdateRef) (
 }
 
 // GetInstallationSize Get the installation_size field of the given pool_update.
-func (_class PoolUpdateClass) GetInstallationSize(sessionID SessionRef, self PoolUpdateRef) (_retval int, _err error) {
+func (_class PoolUpdateClass) GetInstallationSize(sessionID SessionRef, self PoolUpdateRef) (_retval int64, _err error) {
 	_method := "pool_update.get_installation_size"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

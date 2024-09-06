@@ -24,9 +24,9 @@ type HostMetricsRecord struct {
 	// Unique identifier/object reference
 	UUID string
 	// Total host memory (bytes)
-	MemoryTotal int
+	MemoryTotal int64
 	// Free host memory (bytes)
-	MemoryFree int
+	MemoryFree int64
 	// Pool master thinks this host is live
 	Live bool
 	// Time at which this information was last updated
@@ -191,7 +191,7 @@ func (_class HostMetricsClass) GetLive(sessionID SessionRef, self HostMetricsRef
 }
 
 // GetMemoryFree Get the memory/free field of the given host_metrics.
-func (_class HostMetricsClass) GetMemoryFree(sessionID SessionRef, self HostMetricsRef) (_retval int, _err error) {
+func (_class HostMetricsClass) GetMemoryFree(sessionID SessionRef, self HostMetricsRef) (_retval int64, _err error) {
 	_method := "host_metrics.get_memory_free"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -210,7 +210,7 @@ func (_class HostMetricsClass) GetMemoryFree(sessionID SessionRef, self HostMetr
 }
 
 // GetMemoryTotal Get the memory/total field of the given host_metrics.
-func (_class HostMetricsClass) GetMemoryTotal(sessionID SessionRef, self HostMetricsRef) (_retval int, _err error) {
+func (_class HostMetricsClass) GetMemoryTotal(sessionID SessionRef, self HostMetricsRef) (_retval int64, _err error) {
 	_method := "host_metrics.get_memory_total"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

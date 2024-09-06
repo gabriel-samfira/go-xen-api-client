@@ -113,9 +113,9 @@ type VDIRecord struct {
 	// list of crash dumps that refer to this disk
 	CrashDumps []CrashdumpRef
 	// size of disk as presented to the guest (in bytes). Note that, depending on storage backend type, requested size may not be respected exactly
-	VirtualSize int
+	VirtualSize int64
 	// amount of physical space that the disk image is currently taking up on the storage repository (in bytes)
-	PhysicalUtilisation int
+	PhysicalUtilisation int64
 	// type of the VDI
 	Type VdiType
 	// true if this disk may be shared
@@ -134,15 +134,15 @@ type VDIRecord struct {
 	Missing bool
 	// This field is always null. Deprecated
 	Parent VDIRef
-	// data to be inserted into the xenstore tree (/local/domain/0/backend/vbd/<domid>/<device-id>/sm-data) after the VDI is attached. This is generally set by the SM backends on vdi_attach.
+	// data to be inserted int64o the xenstore tree (/local/domain/0/backend/vbd/<domid>/<device-id>/sm-data) after the VDI is attached. This is generally set by the SM backends on vdi_attach.
 	XenstoreData map[string]string
 	// SM dependent data
 	SmConfig map[string]string
 	// true if this is a snapshot.
 	IsASnapshot bool
-	// Ref pointing to the VDI this snapshot is of.
+	// Ref point64ing to the VDI this snapshot is of.
 	SnapshotOf VDIRef
-	// List pointing to all the VDIs snapshots.
+	// List point64ing to all the VDIs snapshots.
 	Snapshots []VDIRef
 	// Date/time when this snapshot was created.
 	SnapshotTime time.Time
@@ -543,7 +543,7 @@ func (_class VDIClass) SetIsASnapshot(sessionID SessionRef, self VDIRef, value b
 }
 
 // SetPhysicalUtilisation Sets the VDI's physical_utilisation field
-func (_class VDIClass) SetPhysicalUtilisation(sessionID SessionRef, self VDIRef, value int) (_err error) {
+func (_class VDIClass) SetPhysicalUtilisation(sessionID SessionRef, self VDIRef, value int64) (_err error) {
 	_method := "VDI.set_physical_utilisation"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -562,7 +562,7 @@ func (_class VDIClass) SetPhysicalUtilisation(sessionID SessionRef, self VDIRef,
 }
 
 // SetVirtualSize Sets the VDI's virtual_size field
-func (_class VDIClass) SetVirtualSize(sessionID SessionRef, self VDIRef, value int) (_err error) {
+func (_class VDIClass) SetVirtualSize(sessionID SessionRef, self VDIRef, value int64) (_err error) {
 	_method := "VDI.set_virtual_size"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -671,13 +671,13 @@ func (_class VDIClass) SetManaged(sessionID SessionRef, self VDIRef, value bool)
 	return
 }
 
-// Copy Copy either a full VDI or the block differences between two VDIs into either a fresh VDI or an existing VDI.
+// Copy Copy either a full VDI or the block differences between two VDIs int64o either a fresh VDI or an existing VDI.
 //
 // Errors:
 //  VDI_READONLY - The operation required write access but this VDI is read-only
 //  VDI_TOO_SMALL - The VDI is too small. Please resize it to at least the minimum size.
 //  VDI_NOT_SPARSE - The VDI is not stored using a sparse format. It is not possible to query and manipulate only the changed blocks (or 'block differences' or 'disk deltas') between two VDIs. Please select a VDI which uses a sparse-aware technology such as VHD.
-func (_class VDIClass) Copy(sessionID SessionRef, vdi VDIRef, sr SRRef, baseVdi VDIRef, intoVdi VDIRef) (_retval VDIRef, _err error) {
+func (_class VDIClass) Copy(sessionID SessionRef, vdi VDIRef, sr SRRef, baseVdi VDIRef, int64oVdi VDIRef) (_retval VDIRef, _err error) {
 	_method := "VDI.copy"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -695,11 +695,11 @@ func (_class VDIClass) Copy(sessionID SessionRef, vdi VDIRef, sr SRRef, baseVdi 
 	if _err != nil {
 		return
 	}
-	_intoVdiArg, _err := convertVDIRefToXen(fmt.Sprintf("%s(%s)", _method, "into_vdi"), intoVdi)
+	_int64oVdiArg, _err := convertVDIRefToXen(fmt.Sprintf("%s(%s)", _method, "int64o_vdi"), int64oVdi)
 	if _err != nil {
 		return
 	}
-	_result, _err := _class.client.APICall(_method, _sessionIDArg, _vdiArg, _srArg, _baseVdiArg, _intoVdiArg)
+	_result, _err := _class.client.APICall(_method, _sessionIDArg, _vdiArg, _srArg, _baseVdiArg, _int64oVdiArg)
 	if _err != nil {
 		return
 	}
@@ -741,8 +741,8 @@ func (_class VDIClass) DbForget(sessionID SessionRef, vdi VDIRef) (_err error) {
 }
 
 // DbIntroduce Create a new VDI record in the database only
-func (_class VDIClass) DbIntroduce(sessionID SessionRef, uuid string, nameLabel string, nameDescription string, sr SRRef, atype VdiType, sharable bool, readOnly bool, otherConfig map[string]string, location string, xenstoreData map[string]string, smConfig map[string]string, managed bool, virtualSize int, physicalUtilisation int, metadataOfPool PoolRef, isASnapshot bool, snapshotTime time.Time, snapshotOf VDIRef, cbtEnabled bool) (_retval VDIRef, _err error) {
-	_method := "VDI.db_introduce"
+func (_class VDIClass) DbIntroduce(sessionID SessionRef, uuid string, nameLabel string, nameDescription string, sr SRRef, atype VdiType, sharable bool, readOnly bool, otherConfig map[string]string, location string, xenstoreData map[string]string, smConfig map[string]string, managed bool, virtualSize int64, physicalUtilisation int64, metadataOfPool PoolRef, isASnapshot bool, snapshotTime time.Time, snapshotOf VDIRef, cbtEnabled bool) (_retval VDIRef, _err error) {
+	_method := "VDI.db_int64roduce"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return
@@ -835,8 +835,8 @@ func (_class VDIClass) DbIntroduce(sessionID SessionRef, uuid string, nameLabel 
 //
 // Errors:
 //  SR_OPERATION_NOT_SUPPORTED - The SR backend does not support the operation (check the SR's allowed operations)
-func (_class VDIClass) Introduce(sessionID SessionRef, uuid string, nameLabel string, nameDescription string, sr SRRef, atype VdiType, sharable bool, readOnly bool, otherConfig map[string]string, location string, xenstoreData map[string]string, smConfig map[string]string, managed bool, virtualSize int, physicalUtilisation int, metadataOfPool PoolRef, isASnapshot bool, snapshotTime time.Time, snapshotOf VDIRef) (_retval VDIRef, _err error) {
-	_method := "VDI.introduce"
+func (_class VDIClass) Introduce(sessionID SessionRef, uuid string, nameLabel string, nameDescription string, sr SRRef, atype VdiType, sharable bool, readOnly bool, otherConfig map[string]string, location string, xenstoreData map[string]string, smConfig map[string]string, managed bool, virtualSize int64, physicalUtilisation int64, metadataOfPool PoolRef, isASnapshot bool, snapshotTime time.Time, snapshotOf VDIRef) (_retval VDIRef, _err error) {
+	_method := "VDI.int64roduce"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return
@@ -922,7 +922,7 @@ func (_class VDIClass) Introduce(sessionID SessionRef, uuid string, nameLabel st
 }
 
 // ResizeOnline Resize the VDI which may or may not be attached to running guests.
-func (_class VDIClass) ResizeOnline(sessionID SessionRef, vdi VDIRef, size int) (_err error) {
+func (_class VDIClass) ResizeOnline(sessionID SessionRef, vdi VDIRef, size int64) (_err error) {
 	_method := "VDI.resize_online"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -941,7 +941,7 @@ func (_class VDIClass) ResizeOnline(sessionID SessionRef, vdi VDIRef, size int) 
 }
 
 // Resize Resize the VDI.
-func (_class VDIClass) Resize(sessionID SessionRef, vdi VDIRef, size int) (_err error) {
+func (_class VDIClass) Resize(sessionID SessionRef, vdi VDIRef, size int64) (_err error) {
 	_method := "VDI.resize"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1664,7 +1664,7 @@ func (_class VDIClass) GetType(sessionID SessionRef, self VDIRef) (_retval VdiTy
 }
 
 // GetPhysicalUtilisation Get the physical_utilisation field of the given VDI.
-func (_class VDIClass) GetPhysicalUtilisation(sessionID SessionRef, self VDIRef) (_retval int, _err error) {
+func (_class VDIClass) GetPhysicalUtilisation(sessionID SessionRef, self VDIRef) (_retval int64, _err error) {
 	_method := "VDI.get_physical_utilisation"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1683,7 +1683,7 @@ func (_class VDIClass) GetPhysicalUtilisation(sessionID SessionRef, self VDIRef)
 }
 
 // GetVirtualSize Get the virtual_size field of the given VDI.
-func (_class VDIClass) GetVirtualSize(sessionID SessionRef, self VDIRef) (_retval int, _err error) {
+func (_class VDIClass) GetVirtualSize(sessionID SessionRef, self VDIRef) (_retval int64, _err error) {
 	_method := "VDI.get_virtual_size"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

@@ -40,7 +40,7 @@ type VMGuestMetricsRecord struct {
 	PVDriversVersion map[string]string
 	// Logically equivalent to PV_drivers_detected
 	PVDriversUpToDate bool
-	// This field exists but has no data. Use the memory and memory_internal_free RRD data-sources instead.
+	// This field exists but has no data. Use the memory and memory_int64ernal_free RRD data-sources instead.
 	Memory map[string]string
 	// This field exists but has no data.
 	Disks map[string]string

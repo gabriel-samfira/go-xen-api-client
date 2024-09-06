@@ -27,7 +27,7 @@ type RoleRecord struct {
 	NameLabel string
 	// what this role is for
 	NameDescription string
-	// a list of pointers to other roles or permissions
+	// a list of point64ers to other roles or permissions
 	Subroles []RoleRef
 }
 

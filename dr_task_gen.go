@@ -23,7 +23,7 @@ var _ = time.UTC
 type DRTaskRecord struct {
 	// Unique identifier/object reference
 	UUID string
-	// All SRs introduced by this appliance
+	// All SRs int64roduced by this appliance
 	IntroducedSRs []SRRef
 }
 
@@ -64,7 +64,7 @@ func (_class DRTaskClass) GetAll(sessionID SessionRef) (_retval []DRTaskRef, _er
 	return
 }
 
-// Destroy Destroy the disaster recovery task, detaching and forgetting any SRs introduced which are no longer required
+// Destroy Destroy the disaster recovery task, detaching and forgetting any SRs int64roduced which are no longer required
 func (_class DRTaskClass) Destroy(sessionID SessionRef, self DRTaskRef) (_err error) {
 	_method := "DR_task.destroy"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
@@ -106,9 +106,9 @@ func (_class DRTaskClass) Create(sessionID SessionRef, atype string, deviceConfi
 	return
 }
 
-// GetIntroducedSRs Get the introduced_SRs field of the given DR_task.
+// GetIntroducedSRs Get the int64roduced_SRs field of the given DR_task.
 func (_class DRTaskClass) GetIntroducedSRs(sessionID SessionRef, self DRTaskRef) (_retval []SRRef, _err error) {
-	_method := "DR_task.get_introduced_SRs"
+	_method := "DR_task.get_int64roduced_SRs"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return

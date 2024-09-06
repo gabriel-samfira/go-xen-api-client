@@ -28,7 +28,7 @@ type VLANRecord struct {
 	// interface on which traffic is untagged
 	UntaggedPIF PIFRef
 	// VLAN tag in use
-	Tag int
+	Tag int64
 	// additional configuration
 	OtherConfig map[string]string
 }
@@ -86,7 +86,7 @@ func (_class VLANClass) Destroy(sessionID SessionRef, self VLANRef) (_err error)
 }
 
 // Create Create a VLAN mux/demuxer
-func (_class VLANClass) Create(sessionID SessionRef, taggedPIF PIFRef, tag int, network NetworkRef) (_retval VLANRef, _err error) {
+func (_class VLANClass) Create(sessionID SessionRef, taggedPIF PIFRef, tag int64, network NetworkRef) (_retval VLANRef, _err error) {
 	_method := "VLAN.create"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -193,7 +193,7 @@ func (_class VLANClass) GetOtherConfig(sessionID SessionRef, self VLANRef) (_ret
 }
 
 // GetTag Get the tag field of the given VLAN.
-func (_class VLANClass) GetTag(sessionID SessionRef, self VLANRef) (_retval int, _err error) {
+func (_class VLANClass) GetTag(sessionID SessionRef, self VLANRef) (_retval int64, _err error) {
 	_method := "VLAN.get_tag"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

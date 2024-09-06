@@ -114,7 +114,7 @@ func (_class PVSSiteClass) Forget(sessionID SessionRef, self PVSSiteRef) (_err e
 
 // Introduce Introduce new PVS site
 func (_class PVSSiteClass) Introduce(sessionID SessionRef, nameLabel string, nameDescription string, pvsUUID string) (_retval PVSSiteRef, _err error) {
-	_method := "PVS_site.introduce"
+	_method := "PVS_site.int64roduce"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return

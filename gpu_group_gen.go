@@ -90,7 +90,7 @@ func (_class GPUGroupClass) GetAll(sessionID SessionRef) (_retval []GPUGroupRef,
 }
 
 // GetRemainingCapacity 
-func (_class GPUGroupClass) GetRemainingCapacity(sessionID SessionRef, self GPUGroupRef, vgpuType VGPUTypeRef) (_retval int, _err error) {
+func (_class GPUGroupClass) GetRemainingCapacity(sessionID SessionRef, self GPUGroupRef, vgpuType VGPUTypeRef) (_retval int64, _err error) {
 	_method := "GPU_group.get_remaining_capacity"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

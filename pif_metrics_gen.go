@@ -38,7 +38,7 @@ type PIFMetricsRecord struct {
 	// Report device name
 	DeviceName string
 	// Speed of the link (if available)
-	Speed int
+	Speed int64
 	// Full duplex capability of the link (if available)
 	Duplex bool
 	// PCI bus path of the pif (if available)
@@ -224,7 +224,7 @@ func (_class PIFMetricsClass) GetDuplex(sessionID SessionRef, self PIFMetricsRef
 }
 
 // GetSpeed Get the speed field of the given PIF_metrics.
-func (_class PIFMetricsClass) GetSpeed(sessionID SessionRef, self PIFMetricsRef) (_retval int, _err error) {
+func (_class PIFMetricsClass) GetSpeed(sessionID SessionRef, self PIFMetricsRef) (_retval int64, _err error) {
 	_method := "PIF_metrics.get_speed"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

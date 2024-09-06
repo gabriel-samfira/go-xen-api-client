@@ -76,9 +76,9 @@ type PIFRecord struct {
 	// ethernet MAC address of physical interface
 	MAC string
 	// MTU in octets
-	MTU int
+	MTU int64
 	// VLAN tag for all traffic passing through this interface
-	VLAN int
+	VLAN int64
 	// metrics associated with this PIF
 	Metrics PIFMetricsRef
 	// true if this represents a physical network interface
@@ -207,8 +207,8 @@ func (_class PIFClass) DbForget(sessionID SessionRef, self PIFRef) (_err error) 
 }
 
 // DbIntroduce Create a new PIF record in the database only
-func (_class PIFClass) DbIntroduce(sessionID SessionRef, device string, network NetworkRef, host HostRef, mac string, mtu int, vlan int, physical bool, ipConfigurationMode IPConfigurationMode, ip string, netmask string, gateway string, dns string, bondSlaveOf BondRef, vlanMasterOf VLANRef, management bool, otherConfig map[string]string, disallowUnplug bool, ipv6ConfigurationMode Ipv6ConfigurationMode, ipv6 []string, ipv6Gateway string, primaryAddressType PrimaryAddressType, managed bool, properties map[string]string) (_retval PIFRef, _err error) {
-	_method := "PIF.db_introduce"
+func (_class PIFClass) DbIntroduce(sessionID SessionRef, device string, network NetworkRef, host HostRef, mac string, mtu int64, vlan int64, physical bool, ipConfigurationMode IPConfigurationMode, ip string, netmask string, gateway string, dns string, bondSlaveOf BondRef, vlanMasterOf VLANRef, management bool, otherConfig map[string]string, disallowUnplug bool, ipv6ConfigurationMode Ipv6ConfigurationMode, ipv6 []string, ipv6Gateway string, primaryAddressType PrimaryAddressType, managed bool, properties map[string]string) (_retval PIFRef, _err error) {
+	_method := "PIF.db_int64roduce"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return
@@ -372,7 +372,7 @@ func (_class PIFClass) Forget(sessionID SessionRef, self PIFRef) (_err error) {
 
 // Introduce Create a PIF object matching a particular network interface
 func (_class PIFClass) Introduce(sessionID SessionRef, host HostRef, mac string, device string, managed bool) (_retval PIFRef, _err error) {
-	_method := "PIF.introduce"
+	_method := "PIF.int64roduce"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return
@@ -523,7 +523,7 @@ func (_class PIFClass) Destroy(sessionID SessionRef, self PIFRef) (_err error) {
 //
 // Errors:
 //  VLAN_TAG_INVALID - You tried to create a VLAN, but the tag you gave was invalid -- it must be between 0 and 4094.  The parameter echoes the VLAN tag you gave.
-func (_class PIFClass) CreateVLAN(sessionID SessionRef, device string, network NetworkRef, host HostRef, vlan int) (_retval PIFRef, _err error) {
+func (_class PIFClass) CreateVLAN(sessionID SessionRef, device string, network NetworkRef, host HostRef, vlan int64) (_retval PIFRef, _err error) {
 	_method := "PIF.create_VLAN"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1109,7 +1109,7 @@ func (_class PIFClass) GetMetrics(sessionID SessionRef, self PIFRef) (_retval PI
 }
 
 // GetVLAN Get the VLAN field of the given PIF.
-func (_class PIFClass) GetVLAN(sessionID SessionRef, self PIFRef) (_retval int, _err error) {
+func (_class PIFClass) GetVLAN(sessionID SessionRef, self PIFRef) (_retval int64, _err error) {
 	_method := "PIF.get_VLAN"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1128,7 +1128,7 @@ func (_class PIFClass) GetVLAN(sessionID SessionRef, self PIFRef) (_retval int, 
 }
 
 // GetMTU Get the MTU field of the given PIF.
-func (_class PIFClass) GetMTU(sessionID SessionRef, self PIFRef) (_retval int, _err error) {
+func (_class PIFClass) GetMTU(sessionID SessionRef, self PIFRef) (_retval int64, _err error) {
 	_method := "PIF.get_MTU"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

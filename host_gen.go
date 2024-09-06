@@ -62,15 +62,15 @@ type HostRecord struct {
 	// a notes field containing human-readable description
 	NameDescription string
 	// Virtualization memory overhead (bytes).
-	MemoryOverhead int
+	MemoryOverhead int64
 	// list of the operations allowed in this state. This list is advisory only and the server state may have changed by the time this field is read by a client.
 	AllowedOperations []HostAllowedOperations
 	// links each of the running tasks using this object (by reference) to a current_operation enum which describes the nature of the task.
 	CurrentOperations map[string]HostAllowedOperations
 	// major version number
-	APIVersionMajor int
+	APIVersionMajor int64
 	// minor version number
-	APIVersionMinor int
+	APIVersionMinor int64
 	// identification of vendor
 	APIVersionVendor string
 	// details of vendor implementation
@@ -160,7 +160,7 @@ type HostRecord struct {
 	// indicates whether the host is configured to output its console to a physical display device
 	Display HostDisplay
 	// The set of versions of the virtual hardware platform that the host can offer to its guests
-	VirtualHardwarePlatformVersions []int
+	VirtualHardwarePlatformVersions []int64
 	// The control domain (domain 0)
 	ControlDomain VMRef
 	// List of updates which require reboot
@@ -206,7 +206,7 @@ func (_class HostClass) GetAll(sessionID SessionRef) (_retval []HostRef, _err er
 	return
 }
 
-// SetSslLegacy Enable/disable SSLv3 for interoperability with older versions of XenServer. When this is set to a different value, the host immediately restarts its SSL/TLS listening service; typically this takes less than a second but existing connections to it will be broken. XenAPI login sessions will remain valid.
+// SetSslLegacy Enable/disable SSLv3 for int64eroperability with older versions of XenServer. When this is set to a different value, the host immediately restarts its SSL/TLS listening service; typically this takes less than a second but existing connections to it will be broken. XenAPI login sessions will remain valid.
 func (_class HostClass) SetSslLegacy(sessionID SessionRef, self HostRef, value bool) (_err error) {
 	_method := "host.set_ssl_legacy"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
@@ -699,7 +699,7 @@ func (_class HostClass) SyncData(sessionID SessionRef, host HostRef) (_err error
 }
 
 // ComputeMemoryOverhead Computes the virtualization memory overhead of a host.
-func (_class HostClass) ComputeMemoryOverhead(sessionID SessionRef, host HostRef) (_retval int, _err error) {
+func (_class HostClass) ComputeMemoryOverhead(sessionID SessionRef, host HostRef) (_retval int64, _err error) {
 	_method := "host.compute_memory_overhead"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -718,7 +718,7 @@ func (_class HostClass) ComputeMemoryOverhead(sessionID SessionRef, host HostRef
 }
 
 // ComputeFreeMemory Computes the amount of free memory on the host.
-func (_class HostClass) ComputeFreeMemory(sessionID SessionRef, host HostRef) (_retval int, _err error) {
+func (_class HostClass) ComputeFreeMemory(sessionID SessionRef, host HostRef) (_retval int64, _err error) {
 	_method := "host.compute_free_memory"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1168,7 +1168,7 @@ func (_class HostClass) BugreportUpload(sessionID SessionRef, host HostRef, url 
 	return
 }
 
-// SendDebugKeys Inject the given string as debugging keys into Xen
+// SendDebugKeys Inject the given string as debugging keys int64o Xen
 func (_class HostClass) SendDebugKeys(sessionID SessionRef, host HostRef, keys string) (_err error) {
 	_method := "host.send_debug_keys"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
@@ -1274,7 +1274,7 @@ func (_class HostClass) Shutdown(sessionID SessionRef, host HostRef) (_err error
 	return
 }
 
-// Enable Puts the host into a state in which new VMs can be started.
+// Enable Puts the host int64o a state in which new VMs can be started.
 func (_class HostClass) Enable(sessionID SessionRef, host HostRef) (_err error) {
 	_method := "host.enable"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
@@ -1289,7 +1289,7 @@ func (_class HostClass) Enable(sessionID SessionRef, host HostRef) (_err error) 
 	return
 }
 
-// Disable Puts the host into a state in which no new VMs can be started. Currently active VMs on the host continue to execute.
+// Disable Puts the host int64o a state in which no new VMs can be started. Currently active VMs on the host continue to execute.
 func (_class HostClass) Disable(sessionID SessionRef, host HostRef) (_err error) {
 	_method := "host.disable"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
@@ -1796,7 +1796,7 @@ func (_class HostClass) GetControlDomain(sessionID SessionRef, self HostRef) (_r
 }
 
 // GetVirtualHardwarePlatformVersions Get the virtual_hardware_platform_versions field of the given host.
-func (_class HostClass) GetVirtualHardwarePlatformVersions(sessionID SessionRef, self HostRef) (_retval []int, _err error) {
+func (_class HostClass) GetVirtualHardwarePlatformVersions(sessionID SessionRef, self HostRef) (_retval []int64, _err error) {
 	_method := "host.get_virtual_hardware_platform_versions"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -2651,7 +2651,7 @@ func (_class HostClass) GetAPIVersionVendor(sessionID SessionRef, self HostRef) 
 }
 
 // GetAPIVersionMinor Get the API_version/minor field of the given host.
-func (_class HostClass) GetAPIVersionMinor(sessionID SessionRef, self HostRef) (_retval int, _err error) {
+func (_class HostClass) GetAPIVersionMinor(sessionID SessionRef, self HostRef) (_retval int64, _err error) {
 	_method := "host.get_API_version_minor"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -2670,7 +2670,7 @@ func (_class HostClass) GetAPIVersionMinor(sessionID SessionRef, self HostRef) (
 }
 
 // GetAPIVersionMajor Get the API_version/major field of the given host.
-func (_class HostClass) GetAPIVersionMajor(sessionID SessionRef, self HostRef) (_retval int, _err error) {
+func (_class HostClass) GetAPIVersionMajor(sessionID SessionRef, self HostRef) (_retval int64, _err error) {
 	_method := "host.get_API_version_major"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -2727,7 +2727,7 @@ func (_class HostClass) GetAllowedOperations(sessionID SessionRef, self HostRef)
 }
 
 // GetMemoryOverhead Get the memory/overhead field of the given host.
-func (_class HostClass) GetMemoryOverhead(sessionID SessionRef, self HostRef) (_retval int, _err error) {
+func (_class HostClass) GetMemoryOverhead(sessionID SessionRef, self HostRef) (_retval int64, _err error) {
 	_method := "host.get_memory_overhead"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

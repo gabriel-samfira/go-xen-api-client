@@ -41,13 +41,13 @@ type VGPUTypeRecord struct {
 	// Model name associated with the VGPU type
 	ModelName string
 	// Framebuffer size of the VGPU type, in bytes
-	FramebufferSize int
+	FramebufferSize int64
 	// Maximum number of displays supported by the VGPU type
-	MaxHeads int
+	MaxHeads int64
 	// Maximum resolution (width) supported by the VGPU type
-	MaxResolutionX int
+	MaxResolutionX int64
 	// Maximum resolution (height) supported by the VGPU type
-	MaxResolutionY int
+	MaxResolutionY int64
 	// List of PGPUs that support this VGPU type
 	SupportedOnPGPUs []PGPURef
 	// List of PGPUs that have this VGPU type enabled
@@ -58,9 +58,9 @@ type VGPUTypeRecord struct {
 	SupportedOnGPUGroups []GPUGroupRef
 	// List of GPU groups in which at least one have this VGPU type enabled
 	EnabledOnGPUGroups []GPUGroupRef
-	// The internal implementation of this VGPU type
+	// The int64ernal implementation of this VGPU type
 	Implementation VgpuTypeImplementation
-	// Key used to identify VGPU types and avoid creating duplicates - this field is used internally and not intended for interpretation by API clients
+	// Key used to identify VGPU types and avoid creating duplicates - this field is used int64ernally and not int64ended for int64erpretation by API clients
 	Identifier string
 	// Indicates whether VGPUs of this type should be considered experimental
 	Experimental bool
@@ -256,7 +256,7 @@ func (_class VGPUTypeClass) GetSupportedOnPGPUs(sessionID SessionRef, self VGPUT
 }
 
 // GetMaxResolutionY Get the max_resolution_y field of the given VGPU_type.
-func (_class VGPUTypeClass) GetMaxResolutionY(sessionID SessionRef, self VGPUTypeRef) (_retval int, _err error) {
+func (_class VGPUTypeClass) GetMaxResolutionY(sessionID SessionRef, self VGPUTypeRef) (_retval int64, _err error) {
 	_method := "VGPU_type.get_max_resolution_y"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -275,7 +275,7 @@ func (_class VGPUTypeClass) GetMaxResolutionY(sessionID SessionRef, self VGPUTyp
 }
 
 // GetMaxResolutionX Get the max_resolution_x field of the given VGPU_type.
-func (_class VGPUTypeClass) GetMaxResolutionX(sessionID SessionRef, self VGPUTypeRef) (_retval int, _err error) {
+func (_class VGPUTypeClass) GetMaxResolutionX(sessionID SessionRef, self VGPUTypeRef) (_retval int64, _err error) {
 	_method := "VGPU_type.get_max_resolution_x"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -294,7 +294,7 @@ func (_class VGPUTypeClass) GetMaxResolutionX(sessionID SessionRef, self VGPUTyp
 }
 
 // GetMaxHeads Get the max_heads field of the given VGPU_type.
-func (_class VGPUTypeClass) GetMaxHeads(sessionID SessionRef, self VGPUTypeRef) (_retval int, _err error) {
+func (_class VGPUTypeClass) GetMaxHeads(sessionID SessionRef, self VGPUTypeRef) (_retval int64, _err error) {
 	_method := "VGPU_type.get_max_heads"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -313,7 +313,7 @@ func (_class VGPUTypeClass) GetMaxHeads(sessionID SessionRef, self VGPUTypeRef) 
 }
 
 // GetFramebufferSize Get the framebuffer_size field of the given VGPU_type.
-func (_class VGPUTypeClass) GetFramebufferSize(sessionID SessionRef, self VGPUTypeRef) (_retval int, _err error) {
+func (_class VGPUTypeClass) GetFramebufferSize(sessionID SessionRef, self VGPUTypeRef) (_retval int64, _err error) {
 	_method := "VGPU_type.get_framebuffer_size"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

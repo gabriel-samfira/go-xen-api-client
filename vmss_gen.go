@@ -36,8 +36,8 @@ type VmssType string
 const (
 	// The snapshot is a disk snapshot
 	VmssTypeSnapshot VmssType = "snapshot"
-	// The snapshot is a checkpoint
-	VmssTypeCheckpoint VmssType = "checkpoint"
+	// The snapshot is a checkpoint64
+	VmssTypeCheckpoint64 VmssType = "checkpoint64"
 	// The snapshot is a VSS
 	VmssTypeSnapshotWithQuiesce VmssType = "snapshot_with_quiesce"
 )
@@ -54,7 +54,7 @@ type VMSSRecord struct {
 	// type of the snapshot schedule
 	Type VmssType
 	// maximum number of snapshots that should be stored at any time
-	RetainedSnapshots int
+	RetainedSnapshots int64
 	// frequency of taking snapshot from snapshot schedule
 	Frequency VmssFrequency
 	// schedule of the snapshot containing 'hour', 'min', 'days'. Date/time-related information is in Local Timezone
@@ -221,7 +221,7 @@ func (_class VMSSClass) SetFrequency(sessionID SessionRef, self VMSSRef, value V
 }
 
 // SetRetainedSnapshots 
-func (_class VMSSClass) SetRetainedSnapshots(sessionID SessionRef, self VMSSRef, value int) (_err error) {
+func (_class VMSSClass) SetRetainedSnapshots(sessionID SessionRef, self VMSSRef, value int64) (_err error) {
 	_method := "VMSS.set_retained_snapshots"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -392,7 +392,7 @@ func (_class VMSSClass) GetFrequency(sessionID SessionRef, self VMSSRef) (_retva
 }
 
 // GetRetainedSnapshots Get the retained_snapshots field of the given VMSS.
-func (_class VMSSClass) GetRetainedSnapshots(sessionID SessionRef, self VMSSRef) (_retval int, _err error) {
+func (_class VMSSClass) GetRetainedSnapshots(sessionID SessionRef, self VMSSRef) (_retval int64, _err error) {
 	_method := "VMSS.get_retained_snapshots"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

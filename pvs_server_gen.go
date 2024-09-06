@@ -26,9 +26,9 @@ type PVSServerRecord struct {
 	// IPv4 addresses of this server
 	Addresses []string
 	// First UDP port accepted by this server
-	FirstPort int
+	FirstPort int64
 	// Last UDP port accepted by this server
-	LastPort int
+	LastPort int64
 	// PVS site this server is part of
 	Site PVSSiteRef
 }
@@ -85,9 +85,9 @@ func (_class PVSServerClass) Forget(sessionID SessionRef, self PVSServerRef) (_e
 	return
 }
 
-// Introduce introduce new PVS server
-func (_class PVSServerClass) Introduce(sessionID SessionRef, addresses []string, firstPort int, lastPort int, site PVSSiteRef) (_retval PVSServerRef, _err error) {
-	_method := "PVS_server.introduce"
+// Introduce int64roduce new PVS server
+func (_class PVSServerClass) Introduce(sessionID SessionRef, addresses []string, firstPort int64, lastPort int64, site PVSSiteRef) (_retval PVSServerRef, _err error) {
+	_method := "PVS_server.int64roduce"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return
@@ -136,7 +136,7 @@ func (_class PVSServerClass) GetSite(sessionID SessionRef, self PVSServerRef) (_
 }
 
 // GetLastPort Get the last_port field of the given PVS_server.
-func (_class PVSServerClass) GetLastPort(sessionID SessionRef, self PVSServerRef) (_retval int, _err error) {
+func (_class PVSServerClass) GetLastPort(sessionID SessionRef, self PVSServerRef) (_retval int64, _err error) {
 	_method := "PVS_server.get_last_port"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -155,7 +155,7 @@ func (_class PVSServerClass) GetLastPort(sessionID SessionRef, self PVSServerRef
 }
 
 // GetFirstPort Get the first_port field of the given PVS_server.
-func (_class PVSServerClass) GetFirstPort(sessionID SessionRef, self PVSServerRef) (_retval int, _err error) {
+func (_class PVSServerClass) GetFirstPort(sessionID SessionRef, self PVSServerRef) (_retval int64, _err error) {
 	_method := "PVS_server.get_first_port"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

@@ -55,8 +55,8 @@ const (
 	VMOperationsCreateTemplate VMOperations = "create_template"
 	// refers to the operation "revert"
 	VMOperationsRevert VMOperations = "revert"
-	// refers to the operation "checkpoint"
-	VMOperationsCheckpoint VMOperations = "checkpoint"
+	// refers to the operation "checkpoint64"
+	VMOperationsCheckpoint64 VMOperations = "checkpoint64"
 	// refers to the operation "snapshot_with_quiesce"
 	VMOperationsSnapshotWithQuiesce VMOperations = "snapshot_with_quiesce"
 	// refers to the operation "provision"
@@ -127,8 +127,8 @@ const (
 	VMOperationsDataSourceOp VMOperations = "data_source_op"
 	// 
 	VMOperationsUpdateAllowedOperations VMOperations = "update_allowed_operations"
-	// Turning this VM into a template
-	VMOperationsMakeIntoTemplate VMOperations = "make_into_template"
+	// Turning this VM int64o a template
+	VMOperationsMakeIntoTemplate VMOperations = "make_int64o_template"
 	// importing a VM from a network stream
 	VMOperationsImport VMOperations = "import"
 	// exporting a VM to a network stream
@@ -172,7 +172,7 @@ type VMRecord struct {
 	// a notes field containing human-readable description
 	NameDescription string
 	// Creators of VMs and templates may store version information here.
-	UserVersion int
+	UserVersion int64
 	// true if this is a template. Template VMs can never be started, they are used only for cloning other VMs
 	IsATemplate bool
 	// true if this is a default template. Default template VMs can never be started or migrated, they are used only for cloning other VMs
@@ -181,26 +181,26 @@ type VMRecord struct {
 	SuspendVDI VDIRef
 	// the host the VM is currently resident on
 	ResidentOn HostRef
-	// A host which the VM has some affinity for (or NULL). This is used as a hint to the start call when it decides where to run the VM. Resource constraints may cause the VM to be started elsewhere.
+	// A host which the VM has some affinity for (or NULL). This is used as a hint64 to the start call when it decides where to run the VM. Resource constraint64s may cause the VM to be started elsewhere.
 	Affinity HostRef
 	// Virtualization memory overhead (bytes).
-	MemoryOverhead int
+	MemoryOverhead int64
 	// Dynamically-set memory target (bytes). The value of this field indicates the current target for memory available to this VM.
-	MemoryTarget int
+	MemoryTarget int64
 	// Statically-set (i.e. absolute) maximum (bytes). The value of this field at VM start time acts as a hard limit of the amount of memory a guest can use. New values only take effect on reboot.
-	MemoryStaticMax int
+	MemoryStaticMax int64
 	// Dynamic maximum (bytes)
-	MemoryDynamicMax int
+	MemoryDynamicMax int64
 	// Dynamic minimum (bytes)
-	MemoryDynamicMin int
+	MemoryDynamicMin int64
 	// Statically-set (i.e. absolute) mininum (bytes). The value of this field indicates the least amount of memory this VM can boot with without crashing.
-	MemoryStaticMin int
+	MemoryStaticMin int64
 	// configuration parameters for the selected VCPU policy
 	VCPUsParams map[string]string
 	// Max number of VCPUs
-	VCPUsMax int
+	VCPUsMax int64
 	// Boot number of VCPUs
-	VCPUsAtStartup int
+	VCPUsAtStartup int64
 	// action to take after the guest has shutdown itself
 	ActionsAfterShutdown OnNormalExit
 	// action to take after the guest has rebooted itself
@@ -244,7 +244,7 @@ type VMRecord struct {
 	// additional configuration
 	OtherConfig map[string]string
 	// domain ID (if available, -1 otherwise)
-	Domid int
+	Domid int64
 	// Domain architecture (if available, null string otherwise)
 	Domarch string
 	// describes the CPU flags on which the VM was last booted
@@ -259,7 +259,7 @@ type VMRecord struct {
 	LastBootedRecord string
 	// An XML specification of recommended values and ranges for properties of this VM
 	Recommendations string
-	// data to be inserted into the xenstore tree (/local/domain/<domid>/vm-data) after the VM is created.
+	// data to be inserted int64o the xenstore tree (/local/domain/<domid>/vm-data) after the VM is created.
 	XenstoreData map[string]string
 	// if true then the system will attempt to keep the VM running as much as possible.
 	HaAlwaysRun bool
@@ -267,9 +267,9 @@ type VMRecord struct {
 	HaRestartPriority string
 	// true if this is a snapshot. Snapshotted VMs can never be started, they are used only for cloning other VMs
 	IsASnapshot bool
-	// Ref pointing to the VM this snapshot is of.
+	// Ref point64ing to the VM this snapshot is of.
 	SnapshotOf VMRef
-	// List pointing to all the VM snapshots.
+	// List point64ing to all the VM snapshots.
 	Snapshots []VMRef
 	// Date/time when this snapshot was created.
 	SnapshotTime time.Time
@@ -285,28 +285,28 @@ type VMRecord struct {
 	SnapshotInfo map[string]string
 	// Encoded information about the VM's metadata this is a snapshot of
 	SnapshotMetadata string
-	// Ref pointing to the parent of this VM
+	// Ref point64ing to the parent of this VM
 	Parent VMRef
-	// List pointing to all the children of this VM
+	// List point64ing to all the children of this VM
 	Children []VMRef
 	// BIOS strings
 	BiosStrings map[string]string
-	// Ref pointing to a protection policy for this VM
+	// Ref point64ing to a protection policy for this VM
 	ProtectionPolicy VMPPRef
 	// true if this snapshot was created by the protection policy
 	IsSnapshotFromVmpp bool
-	// Ref pointing to a snapshot schedule for this VM
+	// Ref point64ing to a snapshot schedule for this VM
 	SnapshotSchedule VMSSRef
 	// true if this snapshot was created by the snapshot schedule
 	IsVmssSnapshot bool
 	// the appliance to which this VM belongs
 	Appliance VMApplianceRef
 	// The delay to wait before proceeding to the next order in the startup sequence (seconds)
-	StartDelay int
+	StartDelay int64
 	// The delay to wait before proceeding to the next order in the shutdown sequence (seconds)
-	ShutdownDelay int
-	// The point in the startup or shutdown sequence at which this VM will be started
-	Order int
+	ShutdownDelay int64
+	// The point64 in the startup or shutdown sequence at which this VM will be started
+	Order int64
 	// Virtual GPUs
 	VGPUs []VGPURef
 	// Currently passed-through PCI devices
@@ -314,11 +314,11 @@ type VMRecord struct {
 	// The SR on which a suspend image is stored
 	SuspendSR SRRef
 	// The number of times this VM has been recovered
-	Version int
+	Version int64
 	// Generation ID of the VM
 	GenerationID string
 	// The host virtual hardware platform version the VM can run on
-	HardwarePlatformVersion int
+	HardwarePlatformVersion int64
 	// When an HVM guest starts, this controls the presence of the emulated C000 PCI device which triggers Windows Update to fetch or update PV drivers.
 	HasVendorDevice bool
 	// Indicates whether a VM requires a reboot in order to update its configuration, e.g. its memory allocation.
@@ -622,7 +622,7 @@ func (_class VMClass) SetSuspendVDI(sessionID SessionRef, self VMRef, value VDIR
 }
 
 // SetOrder Set this VM's boot order
-func (_class VMClass) SetOrder(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetOrder(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_order"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -641,7 +641,7 @@ func (_class VMClass) SetOrder(sessionID SessionRef, self VMRef, value int) (_er
 }
 
 // SetShutdownDelay Set this VM's shutdown delay in seconds
-func (_class VMClass) SetShutdownDelay(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetShutdownDelay(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_shutdown_delay"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -660,7 +660,7 @@ func (_class VMClass) SetShutdownDelay(sessionID SessionRef, self VMRef, value i
 }
 
 // SetStartDelay Set this VM's start delay in seconds
-func (_class VMClass) SetStartDelay(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetStartDelay(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_start_delay"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1128,7 +1128,7 @@ func (_class VMClass) MigrateSend(sessionID SessionRef, vm VMRef, dest map[strin
 }
 
 // MaximiseMemory Returns the maximum amount of guest memory which will fit, together with overheads, in the supplied amount of physical memory. If 'exact' is true then an exact calculation is performed using the VM's current settings. If 'exact' is false then a more conservative approximation is used
-func (_class VMClass) MaximiseMemory(sessionID SessionRef, self VMRef, total int, approximate bool) (_retval int, _err error) {
+func (_class VMClass) MaximiseMemory(sessionID SessionRef, self VMRef, total int64, approximate bool) (_retval int64, _err error) {
 	_method := "VM.maximise_memory"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1199,7 +1199,7 @@ func (_class VMClass) SendSysrq(sessionID SessionRef, vm VMRef, key string) (_er
 }
 
 // SetVCPUsAtStartup Set the number of startup VCPUs for a halted VM
-func (_class VMClass) SetVCPUsAtStartup(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetVCPUsAtStartup(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_VCPUs_at_startup"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1218,7 +1218,7 @@ func (_class VMClass) SetVCPUsAtStartup(sessionID SessionRef, self VMRef, value 
 }
 
 // SetVCPUsMax Set the maximum number of VCPUs for a halted VM
-func (_class VMClass) SetVCPUsMax(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetVCPUsMax(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_VCPUs_max"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1309,7 +1309,7 @@ func (_class VMClass) WaitMemoryTargetLive(sessionID SessionRef, self VMRef) (_e
 }
 
 // SetMemoryTargetLive Set the memory target for a running VM
-func (_class VMClass) SetMemoryTargetLive(sessionID SessionRef, self VMRef, target int) (_err error) {
+func (_class VMClass) SetMemoryTargetLive(sessionID SessionRef, self VMRef, target int64) (_err error) {
 	_method := "VM.set_memory_target_live"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1328,7 +1328,7 @@ func (_class VMClass) SetMemoryTargetLive(sessionID SessionRef, self VMRef, targ
 }
 
 // SetMemory Set the memory allocation of this VM. Sets all of memory_static_max, memory_dynamic_min, and memory_dynamic_max to the given value, and leaves memory_static_min untouched.
-func (_class VMClass) SetMemory(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetMemory(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_memory"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1347,7 +1347,7 @@ func (_class VMClass) SetMemory(sessionID SessionRef, self VMRef, value int) (_e
 }
 
 // SetMemoryLimits Set the memory limits of this VM.
-func (_class VMClass) SetMemoryLimits(sessionID SessionRef, self VMRef, staticMin int, staticMax int, dynamicMin int, dynamicMax int) (_err error) {
+func (_class VMClass) SetMemoryLimits(sessionID SessionRef, self VMRef, staticMin int64, staticMax int64, dynamicMin int64, dynamicMax int64) (_err error) {
 	_method := "VM.set_memory_limits"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1378,7 +1378,7 @@ func (_class VMClass) SetMemoryLimits(sessionID SessionRef, self VMRef, staticMi
 }
 
 // SetMemoryStaticRange Set the static (ie boot-time) range of virtual memory that the VM is allowed to use.
-func (_class VMClass) SetMemoryStaticRange(sessionID SessionRef, self VMRef, min int, max int) (_err error) {
+func (_class VMClass) SetMemoryStaticRange(sessionID SessionRef, self VMRef, min int64, max int64) (_err error) {
 	_method := "VM.set_memory_static_range"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1401,7 +1401,7 @@ func (_class VMClass) SetMemoryStaticRange(sessionID SessionRef, self VMRef, min
 }
 
 // SetMemoryStaticMin Set the value of the memory_static_min field
-func (_class VMClass) SetMemoryStaticMin(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetMemoryStaticMin(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_memory_static_min"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1423,7 +1423,7 @@ func (_class VMClass) SetMemoryStaticMin(sessionID SessionRef, self VMRef, value
 //
 // Errors:
 //  HA_OPERATION_WOULD_BREAK_FAILOVER_PLAN - This operation cannot be performed because it would invalidate VM failover planning such that the system would be unable to guarantee to restart protected VMs after a Host failure.
-func (_class VMClass) SetMemoryStaticMax(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetMemoryStaticMax(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_memory_static_max"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1442,7 +1442,7 @@ func (_class VMClass) SetMemoryStaticMax(sessionID SessionRef, self VMRef, value
 }
 
 // SetMemoryDynamicRange Set the minimum and maximum amounts of physical memory the VM is allowed to use.
-func (_class VMClass) SetMemoryDynamicRange(sessionID SessionRef, self VMRef, min int, max int) (_err error) {
+func (_class VMClass) SetMemoryDynamicRange(sessionID SessionRef, self VMRef, min int64, max int64) (_err error) {
 	_method := "VM.set_memory_dynamic_range"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1465,7 +1465,7 @@ func (_class VMClass) SetMemoryDynamicRange(sessionID SessionRef, self VMRef, mi
 }
 
 // SetMemoryDynamicMin Set the value of the memory_dynamic_min field
-func (_class VMClass) SetMemoryDynamicMin(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetMemoryDynamicMin(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_memory_dynamic_min"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1484,7 +1484,7 @@ func (_class VMClass) SetMemoryDynamicMin(sessionID SessionRef, self VMRef, valu
 }
 
 // SetMemoryDynamicMax Set the value of the memory_dynamic_max field
-func (_class VMClass) SetMemoryDynamicMax(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetMemoryDynamicMax(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_memory_dynamic_max"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1503,7 +1503,7 @@ func (_class VMClass) SetMemoryDynamicMax(sessionID SessionRef, self VMRef, valu
 }
 
 // ComputeMemoryOverhead Computes the virtualization memory overhead of a VM.
-func (_class VMClass) ComputeMemoryOverhead(sessionID SessionRef, vm VMRef) (_retval int, _err error) {
+func (_class VMClass) ComputeMemoryOverhead(sessionID SessionRef, vm VMRef) (_retval int64, _err error) {
 	_method := "VM.compute_memory_overhead"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1587,7 +1587,7 @@ func (_class VMClass) AddToVCPUsParamsLive(sessionID SessionRef, self VMRef, key
 // Errors:
 //  OPERATION_NOT_ALLOWED - You attempted an operation that was not allowed.
 //  LICENCE_RESTRICTION - This operation is not allowed because your license lacks a needed feature.  Please contact your support representative.
-func (_class VMClass) SetVCPUsNumberLive(sessionID SessionRef, self VMRef, nvcpu int) (_err error) {
+func (_class VMClass) SetVCPUsNumberLive(sessionID SessionRef, self VMRef, nvcpu int64) (_err error) {
 	_method := "VM.set_VCPUs_number_live"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -1967,7 +1967,7 @@ func (_class VMClass) Provision(sessionID SessionRef, vm VMRef) (_err error) {
 	return
 }
 
-// Checkpoint Checkpoints the specified VM, making a new VM. Checkpoint automatically exploits the capabilities of the underlying storage repository in which the VM's disk images are stored (e.g. Copy on Write) and saves the memory image as well.
+// Checkpoint64 Checkpoint64s the specified VM, making a new VM. Checkpoint64 automatically exploits the capabilities of the underlying storage repository in which the VM's disk images are stored (e.g. Copy on Write) and saves the memory image as well.
 //
 // Errors:
 //  VM_BAD_POWER_STATE - You attempted an operation on a VM that was not in an appropriate power state at the time; for example, you attempted to start a VM that was already running.  The parameters returned are the VM's handle, and the expected and actual VM state at the time of the call.
@@ -1975,8 +1975,8 @@ func (_class VMClass) Provision(sessionID SessionRef, vm VMRef) (_err error) {
 //  OPERATION_NOT_ALLOWED - You attempted an operation that was not allowed.
 //  VM_CHECKPOINT_SUSPEND_FAILED - An error occured while saving the memory image of the specified virtual machine
 //  VM_CHECKPOINT_RESUME_FAILED - An error occured while restoring the memory image of the specified virtual machine
-func (_class VMClass) Checkpoint(sessionID SessionRef, vm VMRef, newName string) (_retval VMRef, _err error) {
-	_method := "VM.checkpoint"
+func (_class VMClass) Checkpoint64(sessionID SessionRef, vm VMRef, newName string) (_retval VMRef, _err error) {
+	_method := "VM.checkpoint64"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return
@@ -2141,7 +2141,7 @@ func (_class VMClass) Snapshot(sessionID SessionRef, vm VMRef, newName string) (
 }
 
 // SetHardwarePlatformVersion Set the hardware_platform_version field of the given VM.
-func (_class VMClass) SetHardwarePlatformVersion(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetHardwarePlatformVersion(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_hardware_platform_version"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -2849,7 +2849,7 @@ func (_class VMClass) SetIsATemplate(sessionID SessionRef, self VMRef, value boo
 }
 
 // SetUserVersion Set the user_version field of the given VM.
-func (_class VMClass) SetUserVersion(sessionID SessionRef, self VMRef, value int) (_err error) {
+func (_class VMClass) SetUserVersion(sessionID SessionRef, self VMRef, value int64) (_err error) {
 	_method := "VM.set_user_version"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -2963,7 +2963,7 @@ func (_class VMClass) GetHasVendorDevice(sessionID SessionRef, self VMRef) (_ret
 }
 
 // GetHardwarePlatformVersion Get the hardware_platform_version field of the given VM.
-func (_class VMClass) GetHardwarePlatformVersion(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetHardwarePlatformVersion(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_hardware_platform_version"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -3001,7 +3001,7 @@ func (_class VMClass) GetGenerationID(sessionID SessionRef, self VMRef) (_retval
 }
 
 // GetVersion Get the version field of the given VM.
-func (_class VMClass) GetVersion(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetVersion(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_version"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -3077,7 +3077,7 @@ func (_class VMClass) GetVGPUs(sessionID SessionRef, self VMRef) (_retval []VGPU
 }
 
 // GetOrder Get the order field of the given VM.
-func (_class VMClass) GetOrder(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetOrder(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_order"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -3096,7 +3096,7 @@ func (_class VMClass) GetOrder(sessionID SessionRef, self VMRef) (_retval int, _
 }
 
 // GetShutdownDelay Get the shutdown_delay field of the given VM.
-func (_class VMClass) GetShutdownDelay(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetShutdownDelay(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_shutdown_delay"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -3115,7 +3115,7 @@ func (_class VMClass) GetShutdownDelay(sessionID SessionRef, self VMRef) (_retva
 }
 
 // GetStartDelay Get the start_delay field of the given VM.
-func (_class VMClass) GetStartDelay(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetStartDelay(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_start_delay"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -3666,7 +3666,7 @@ func (_class VMClass) GetDomarch(sessionID SessionRef, self VMRef) (_retval stri
 }
 
 // GetDomid Get the domid field of the given VM.
-func (_class VMClass) GetDomid(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetDomid(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_domid"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -4084,7 +4084,7 @@ func (_class VMClass) GetActionsAfterShutdown(sessionID SessionRef, self VMRef) 
 }
 
 // GetVCPUsAtStartup Get the VCPUs/at_startup field of the given VM.
-func (_class VMClass) GetVCPUsAtStartup(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetVCPUsAtStartup(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_VCPUs_at_startup"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -4103,7 +4103,7 @@ func (_class VMClass) GetVCPUsAtStartup(sessionID SessionRef, self VMRef) (_retv
 }
 
 // GetVCPUsMax Get the VCPUs/max field of the given VM.
-func (_class VMClass) GetVCPUsMax(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetVCPUsMax(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_VCPUs_max"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -4141,7 +4141,7 @@ func (_class VMClass) GetVCPUsParams(sessionID SessionRef, self VMRef) (_retval 
 }
 
 // GetMemoryStaticMin Get the memory/static_min field of the given VM.
-func (_class VMClass) GetMemoryStaticMin(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetMemoryStaticMin(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_memory_static_min"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -4160,7 +4160,7 @@ func (_class VMClass) GetMemoryStaticMin(sessionID SessionRef, self VMRef) (_ret
 }
 
 // GetMemoryDynamicMin Get the memory/dynamic_min field of the given VM.
-func (_class VMClass) GetMemoryDynamicMin(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetMemoryDynamicMin(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_memory_dynamic_min"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -4179,7 +4179,7 @@ func (_class VMClass) GetMemoryDynamicMin(sessionID SessionRef, self VMRef) (_re
 }
 
 // GetMemoryDynamicMax Get the memory/dynamic_max field of the given VM.
-func (_class VMClass) GetMemoryDynamicMax(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetMemoryDynamicMax(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_memory_dynamic_max"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -4198,7 +4198,7 @@ func (_class VMClass) GetMemoryDynamicMax(sessionID SessionRef, self VMRef) (_re
 }
 
 // GetMemoryStaticMax Get the memory/static_max field of the given VM.
-func (_class VMClass) GetMemoryStaticMax(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetMemoryStaticMax(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_memory_static_max"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -4217,7 +4217,7 @@ func (_class VMClass) GetMemoryStaticMax(sessionID SessionRef, self VMRef) (_ret
 }
 
 // GetMemoryTarget Get the memory/target field of the given VM.
-func (_class VMClass) GetMemoryTarget(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetMemoryTarget(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_memory_target"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -4236,7 +4236,7 @@ func (_class VMClass) GetMemoryTarget(sessionID SessionRef, self VMRef) (_retval
 }
 
 // GetMemoryOverhead Get the memory/overhead field of the given VM.
-func (_class VMClass) GetMemoryOverhead(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetMemoryOverhead(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_memory_overhead"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -4350,7 +4350,7 @@ func (_class VMClass) GetIsATemplate(sessionID SessionRef, self VMRef) (_retval 
 }
 
 // GetUserVersion Get the user_version field of the given VM.
-func (_class VMClass) GetUserVersion(sessionID SessionRef, self VMRef) (_retval int, _err error) {
+func (_class VMClass) GetUserVersion(sessionID SessionRef, self VMRef) (_retval int64, _err error) {
 	_method := "VM.get_user_version"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -4516,7 +4516,7 @@ func (_class VMClass) Destroy(sessionID SessionRef, self VMRef) (_err error) {
 	return
 }
 
-// Create NOT RECOMMENDED! VM.clone or VM.copy (or VM.import) is a better choice in almost all situations. The standard way to obtain a new VM is to call VM.clone on a template VM, then call VM.provision on the new clone. Caution: if VM.create is used and then the new VM is attached to a virtual disc that has an operating system already installed, then there is no guarantee that the operating system will boot and run. Any software that calls VM.create on a future version of this API may fail or give unexpected results. For example this could happen if an additional parameter were added to VM.create. VM.create is intended only for use in the automatic creation of the system VM templates. It creates a new VM instance, and returns its handle. The constructor args are: name_label, name_description, user_version*, is_a_template*, affinity*, memory_target, memory_static_max*, memory_dynamic_max*, memory_dynamic_min*, memory_static_min*, VCPUs_params*, VCPUs_max*, VCPUs_at_startup*, actions_after_shutdown*, actions_after_reboot*, actions_after_crash*, PV_bootloader*, PV_kernel*, PV_ramdisk*, PV_args*, PV_bootloader_args*, PV_legacy_args*, HVM_boot_policy*, HVM_boot_params*, HVM_shadow_multiplier, platform*, PCI_bus*, other_config*, recommendations*, xenstore_data, ha_always_run, ha_restart_priority, tags, blocked_operations, protection_policy, is_snapshot_from_vmpp, snapshot_schedule, is_vmss_snapshot, appliance, start_delay, shutdown_delay, order, suspend_SR, version, generation_id, hardware_platform_version, has_vendor_device, reference_label (* = non-optional).
+// Create NOT RECOMMENDED! VM.clone or VM.copy (or VM.import) is a better choice in almost all situations. The standard way to obtain a new VM is to call VM.clone on a template VM, then call VM.provision on the new clone. Caution: if VM.create is used and then the new VM is attached to a virtual disc that has an operating system already installed, then there is no guarantee that the operating system will boot and run. Any software that calls VM.create on a future version of this API may fail or give unexpected results. For example this could happen if an additional parameter were added to VM.create. VM.create is int64ended only for use in the automatic creation of the system VM templates. It creates a new VM instance, and returns its handle. The constructor args are: name_label, name_description, user_version*, is_a_template*, affinity*, memory_target, memory_static_max*, memory_dynamic_max*, memory_dynamic_min*, memory_static_min*, VCPUs_params*, VCPUs_max*, VCPUs_at_startup*, actions_after_shutdown*, actions_after_reboot*, actions_after_crash*, PV_bootloader*, PV_kernel*, PV_ramdisk*, PV_args*, PV_bootloader_args*, PV_legacy_args*, HVM_boot_policy*, HVM_boot_params*, HVM_shadow_multiplier, platform*, PCI_bus*, other_config*, recommendations*, xenstore_data, ha_always_run, ha_restart_priority, tags, blocked_operations, protection_policy, is_snapshot_from_vmpp, snapshot_schedule, is_vmss_snapshot, appliance, start_delay, shutdown_delay, order, suspend_SR, version, generation_id, hardware_platform_version, has_vendor_device, reference_label (* = non-optional).
 func (_class VMClass) Create(sessionID SessionRef, args VMRecord) (_retval VMRef, _err error) {
 	_method := "VM.create"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)

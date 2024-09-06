@@ -8,10 +8,11 @@ package xenapi
 
 import (
 	"fmt"
-	"github.com/amfranz/go-xmlrpc-client"
 	"reflect"
 	"strconv"
 	"time"
+
+	"github.com/amfranz/go-xmlrpc-client"
 )
 
 var _ = fmt.Errorf
@@ -47,12 +48,11 @@ type BondRecord struct {
 	// Additional configuration properties specific to the bond mode.
 	Properties map[string]string
 	// Number of links up in this bond
-	LinksUp int
+	LinksUp int64
 }
 
 type BondRef string
 
-// 
 type BondClass struct {
 	client *Client
 }
@@ -68,7 +68,7 @@ func (_class BondClass) GetAllRecords(sessionID SessionRef) (_retval map[BondRef
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertBondRefToBondRecordMapToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertBondRefToBondRecordMapToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -83,7 +83,7 @@ func (_class BondClass) GetAll(sessionID SessionRef) (_retval []BondRef, _err er
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertBondRefSetToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertBondRefSetToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -106,7 +106,7 @@ func (_class BondClass) SetProperty(sessionID SessionRef, self BondRef, name str
 	if _err != nil {
 		return
 	}
-	_, _err =  _class.client.APICall(_method, _sessionIDArg, _selfArg, _nameArg, _valueArg)
+	_, _err = _class.client.APICall(_method, _sessionIDArg, _selfArg, _nameArg, _valueArg)
 	return
 }
 
@@ -125,7 +125,7 @@ func (_class BondClass) SetMode(sessionID SessionRef, self BondRef, value BondMo
 	if _err != nil {
 		return
 	}
-	_, _err =  _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	_, _err = _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
 	return
 }
 
@@ -140,7 +140,7 @@ func (_class BondClass) Destroy(sessionID SessionRef, self BondRef) (_err error)
 	if _err != nil {
 		return
 	}
-	_, _err =  _class.client.APICall(_method, _sessionIDArg, _selfArg)
+	_, _err = _class.client.APICall(_method, _sessionIDArg, _selfArg)
 	return
 }
 
@@ -175,7 +175,7 @@ func (_class BondClass) Create(sessionID SessionRef, network NetworkRef, members
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertBondRefToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertBondRefToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -194,7 +194,7 @@ func (_class BondClass) RemoveFromOtherConfig(sessionID SessionRef, self BondRef
 	if _err != nil {
 		return
 	}
-	_, _err =  _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg)
+	_, _err = _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg)
 	return
 }
 
@@ -217,7 +217,7 @@ func (_class BondClass) AddToOtherConfig(sessionID SessionRef, self BondRef, key
 	if _err != nil {
 		return
 	}
-	_, _err =  _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg, _valueArg)
+	_, _err = _class.client.APICall(_method, _sessionIDArg, _selfArg, _keyArg, _valueArg)
 	return
 }
 
@@ -236,12 +236,12 @@ func (_class BondClass) SetOtherConfig(sessionID SessionRef, self BondRef, value
 	if _err != nil {
 		return
 	}
-	_, _err =  _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
+	_, _err = _class.client.APICall(_method, _sessionIDArg, _selfArg, _valueArg)
 	return
 }
 
 // GetLinksUp Get the links_up field of the given Bond.
-func (_class BondClass) GetLinksUp(sessionID SessionRef, self BondRef) (_retval int, _err error) {
+func (_class BondClass) GetLinksUp(sessionID SessionRef, self BondRef) (_retval int64, _err error) {
 	_method := "Bond.get_links_up"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -255,7 +255,7 @@ func (_class BondClass) GetLinksUp(sessionID SessionRef, self BondRef) (_retval 
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertIntToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertIntToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -274,7 +274,7 @@ func (_class BondClass) GetProperties(sessionID SessionRef, self BondRef) (_retv
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertStringToStringMapToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertStringToStringMapToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -293,7 +293,7 @@ func (_class BondClass) GetMode(sessionID SessionRef, self BondRef) (_retval Bon
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertEnumBondModeToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertEnumBondModeToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -312,7 +312,7 @@ func (_class BondClass) GetPrimarySlave(sessionID SessionRef, self BondRef) (_re
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertPIFRefToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertPIFRefToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -331,7 +331,7 @@ func (_class BondClass) GetOtherConfig(sessionID SessionRef, self BondRef) (_ret
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertStringToStringMapToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertStringToStringMapToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -350,7 +350,7 @@ func (_class BondClass) GetSlaves(sessionID SessionRef, self BondRef) (_retval [
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertPIFRefSetToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertPIFRefSetToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -369,7 +369,7 @@ func (_class BondClass) GetMaster(sessionID SessionRef, self BondRef) (_retval P
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertPIFRefToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertPIFRefToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -388,7 +388,7 @@ func (_class BondClass) GetUUID(sessionID SessionRef, self BondRef) (_retval str
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertStringToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertStringToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -407,7 +407,7 @@ func (_class BondClass) GetByUUID(sessionID SessionRef, uuid string) (_retval Bo
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertBondRefToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertBondRefToGo(_method+" -> ", _result.Value)
 	return
 }
 
@@ -426,6 +426,6 @@ func (_class BondClass) GetRecord(sessionID SessionRef, self BondRef) (_retval B
 	if _err != nil {
 		return
 	}
-	_retval, _err = convertBondRecordToGo(_method + " -> ", _result.Value)
+	_retval, _err = convertBondRecordToGo(_method+" -> ", _result.Value)
 	return
 }

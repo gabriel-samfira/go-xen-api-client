@@ -24,17 +24,17 @@ type VMMetricsRecord struct {
 	// Unique identifier/object reference
 	UUID string
 	// Guest's actual memory (bytes)
-	MemoryActual int
+	MemoryActual int64
 	// Current number of VCPUs
-	VCPUsNumber int
+	VCPUsNumber int64
 	// Utilisation for all of guest's current VCPUs
-	VCPUsUtilisation map[int]float64
+	VCPUsUtilisation map[int64]float64
 	// VCPU to PCPU map
-	VCPUsCPU map[int]int
+	VCPUsCPU map[int64]int64
 	// The live equivalent to VM.VCPUs_params
 	VCPUsParams map[string]string
 	// CPU flags (blocked,online,running)
-	VCPUsFlags map[int][]string
+	VCPUsFlags map[int64][]string
 	// The state of the guest, eg blocked, dying etc
 	State []string
 	// Time at which this VM was last booted
@@ -304,7 +304,7 @@ func (_class VMMetricsClass) GetState(sessionID SessionRef, self VMMetricsRef) (
 }
 
 // GetVCPUsFlags Get the VCPUs/flags field of the given VM_metrics.
-func (_class VMMetricsClass) GetVCPUsFlags(sessionID SessionRef, self VMMetricsRef) (_retval map[int][]string, _err error) {
+func (_class VMMetricsClass) GetVCPUsFlags(sessionID SessionRef, self VMMetricsRef) (_retval map[int64][]string, _err error) {
 	_method := "VM_metrics.get_VCPUs_flags"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -342,7 +342,7 @@ func (_class VMMetricsClass) GetVCPUsParams(sessionID SessionRef, self VMMetrics
 }
 
 // GetVCPUsCPU Get the VCPUs/CPU field of the given VM_metrics.
-func (_class VMMetricsClass) GetVCPUsCPU(sessionID SessionRef, self VMMetricsRef) (_retval map[int]int, _err error) {
+func (_class VMMetricsClass) GetVCPUsCPU(sessionID SessionRef, self VMMetricsRef) (_retval map[int64]int64, _err error) {
 	_method := "VM_metrics.get_VCPUs_CPU"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -361,7 +361,7 @@ func (_class VMMetricsClass) GetVCPUsCPU(sessionID SessionRef, self VMMetricsRef
 }
 
 // GetVCPUsUtilisation Get the VCPUs/utilisation field of the given VM_metrics.
-func (_class VMMetricsClass) GetVCPUsUtilisation(sessionID SessionRef, self VMMetricsRef) (_retval map[int]float64, _err error) {
+func (_class VMMetricsClass) GetVCPUsUtilisation(sessionID SessionRef, self VMMetricsRef) (_retval map[int64]float64, _err error) {
 	_method := "VM_metrics.get_VCPUs_utilisation"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -380,7 +380,7 @@ func (_class VMMetricsClass) GetVCPUsUtilisation(sessionID SessionRef, self VMMe
 }
 
 // GetVCPUsNumber Get the VCPUs/number field of the given VM_metrics.
-func (_class VMMetricsClass) GetVCPUsNumber(sessionID SessionRef, self VMMetricsRef) (_retval int, _err error) {
+func (_class VMMetricsClass) GetVCPUsNumber(sessionID SessionRef, self VMMetricsRef) (_retval int64, _err error) {
 	_method := "VM_metrics.get_VCPUs_number"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -399,7 +399,7 @@ func (_class VMMetricsClass) GetVCPUsNumber(sessionID SessionRef, self VMMetrics
 }
 
 // GetMemoryActual Get the memory/actual field of the given VM_metrics.
-func (_class VMMetricsClass) GetMemoryActual(sessionID SessionRef, self VMMetricsRef) (_retval int, _err error) {
+func (_class VMMetricsClass) GetMemoryActual(sessionID SessionRef, self VMMetricsRef) (_retval int64, _err error) {
 	_method := "VM_metrics.get_memory_actual"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

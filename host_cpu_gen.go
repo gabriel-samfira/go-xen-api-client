@@ -26,17 +26,17 @@ type HostCPURecord struct {
 	// the host the CPU is in
 	Host HostRef
 	// the number of the physical CPU within the host
-	Number int
+	Number int64
 	// the vendor of the physical CPU
 	Vendor string
 	// the speed of the physical CPU
-	Speed int
+	Speed int64
 	// the model name of the physical CPU
 	Modelname string
 	// the family (number) of the physical CPU
-	Family int
+	Family int64
 	// the model number of the physical CPU
-	Model int
+	Model int64
 	// the stepping of the physical CPU
 	Stepping string
 	// the flags of the physical CPU (a decoded version of the features field)
@@ -243,7 +243,7 @@ func (_class HostCPUClass) GetStepping(sessionID SessionRef, self HostCPURef) (_
 }
 
 // GetModel Get the model field of the given host_cpu.
-func (_class HostCPUClass) GetModel(sessionID SessionRef, self HostCPURef) (_retval int, _err error) {
+func (_class HostCPUClass) GetModel(sessionID SessionRef, self HostCPURef) (_retval int64, _err error) {
 	_method := "host_cpu.get_model"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -262,7 +262,7 @@ func (_class HostCPUClass) GetModel(sessionID SessionRef, self HostCPURef) (_ret
 }
 
 // GetFamily Get the family field of the given host_cpu.
-func (_class HostCPUClass) GetFamily(sessionID SessionRef, self HostCPURef) (_retval int, _err error) {
+func (_class HostCPUClass) GetFamily(sessionID SessionRef, self HostCPURef) (_retval int64, _err error) {
 	_method := "host_cpu.get_family"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -300,7 +300,7 @@ func (_class HostCPUClass) GetModelname(sessionID SessionRef, self HostCPURef) (
 }
 
 // GetSpeed Get the speed field of the given host_cpu.
-func (_class HostCPUClass) GetSpeed(sessionID SessionRef, self HostCPURef) (_retval int, _err error) {
+func (_class HostCPUClass) GetSpeed(sessionID SessionRef, self HostCPURef) (_retval int64, _err error) {
 	_method := "host_cpu.get_speed"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -338,7 +338,7 @@ func (_class HostCPUClass) GetVendor(sessionID SessionRef, self HostCPURef) (_re
 }
 
 // GetNumber Get the number field of the given host_cpu.
-func (_class HostCPUClass) GetNumber(sessionID SessionRef, self HostCPURef) (_retval int, _err error) {
+func (_class HostCPUClass) GetNumber(sessionID SessionRef, self HostCPURef) (_retval int64, _err error) {
 	_method := "host_cpu.get_number"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

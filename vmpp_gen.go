@@ -25,8 +25,8 @@ type VmppBackupType string
 const (
 	// The backup is a snapshot
 	VmppBackupTypeSnapshot VmppBackupType = "snapshot"
-	// The backup is a checkpoint
-	VmppBackupTypeCheckpoint VmppBackupType = "checkpoint"
+	// The backup is a checkpoint64
+	VmppBackupTypeCheckpoint64 VmppBackupType = "checkpoint64"
 )
 
 type VmppBackupFrequency string
@@ -76,7 +76,7 @@ type VMPPRecord struct {
 	// type of the backup sub-policy
 	BackupType VmppBackupType
 	// maximum number of backups that should be stored at any time
-	BackupRetentionValue int
+	BackupRetentionValue int64
 	// frequency of the backup schedule
 	BackupFrequency VmppBackupFrequency
 	// schedule of the backup containing 'hour', 'min', 'days'. Date/time-related information is in Local Timezone
@@ -503,7 +503,7 @@ func (_class VMPPClass) SetBackupFrequency(sessionID SessionRef, self VMPPRef, v
 }
 
 // SetBackupRetentionValue 
-func (_class VMPPClass) SetBackupRetentionValue(sessionID SessionRef, self VMPPRef, value int) (_err error) {
+func (_class VMPPClass) SetBackupRetentionValue(sessionID SessionRef, self VMPPRef, value int64) (_err error) {
 	_method := "VMPP.set_backup_retention_value"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -522,7 +522,7 @@ func (_class VMPPClass) SetBackupRetentionValue(sessionID SessionRef, self VMPPR
 }
 
 // GetAlerts This call fetches a history of alerts for a given protection policy
-func (_class VMPPClass) GetAlerts(sessionID SessionRef, vmpp VMPPRef, hoursFromNow int) (_retval []string, _err error) {
+func (_class VMPPClass) GetAlerts(sessionID SessionRef, vmpp VMPPRef, hoursFromNow int64) (_retval []string, _err error) {
 	_method := "VMPP.get_alerts"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -925,7 +925,7 @@ func (_class VMPPClass) GetBackupFrequency(sessionID SessionRef, self VMPPRef) (
 }
 
 // GetBackupRetentionValue Get the backup_retention_value field of the given VMPP.
-func (_class VMPPClass) GetBackupRetentionValue(sessionID SessionRef, self VMPPRef) (_retval int, _err error) {
+func (_class VMPPClass) GetBackupRetentionValue(sessionID SessionRef, self VMPPRef) (_retval int64, _err error) {
 	_method := "VMPP.get_backup_retention_value"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

@@ -27,7 +27,7 @@ const (
 	VbdOperationsAttach VbdOperations = "attach"
 	// Attempting to eject the media from this VBD
 	VbdOperationsEject VbdOperations = "eject"
-	// Attempting to insert new media into this VBD
+	// Attempting to insert new media int64o this VBD
 	VbdOperationsInsert VbdOperations = "insert"
 	// Attempting to hotplug this VBD
 	VbdOperationsPlug VbdOperations = "plug"
@@ -93,7 +93,7 @@ type VBDRecord struct {
 	// is the device currently attached (erased on reboot)
 	CurrentlyAttached bool
 	// error/success code associated with last attach-operation (erased on reboot)
-	StatusCode int
+	StatusCode int64
 	// error/success information associated with last attach-operation status (erased on reboot)
 	StatusDetail string
 	// Device runtime properties
@@ -228,7 +228,7 @@ func (_class VBDClass) Plug(sessionID SessionRef, self VBDRef) (_err error) {
 	return
 }
 
-// Insert Insert new media into the device
+// Insert Insert new media int64o the device
 //
 // Errors:
 //  VBD_NOT_REMOVABLE_MEDIA - Media could not be ejected because it is not removable
@@ -602,7 +602,7 @@ func (_class VBDClass) GetStatusDetail(sessionID SessionRef, self VBDRef) (_retv
 }
 
 // GetStatusCode Get the status_code field of the given VBD.
-func (_class VBDClass) GetStatusCode(sessionID SessionRef, self VBDRef) (_retval int, _err error) {
+func (_class VBDClass) GetStatusCode(sessionID SessionRef, self VBDRef) (_retval int64, _err error) {
 	_method := "VBD.get_status_code"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

@@ -43,7 +43,7 @@ type PoolPatchRecord struct {
 	// Patch version number
 	Version string
 	// Size of the patch
-	Size int
+	Size int64
 	// This patch should be applied across the entire pool
 	PoolApplied bool
 	// This hosts this patch is applied to.
@@ -375,7 +375,7 @@ func (_class PoolPatchClass) GetPoolApplied(sessionID SessionRef, self PoolPatch
 }
 
 // GetSize Get the size field of the given pool_patch.
-func (_class PoolPatchClass) GetSize(sessionID SessionRef, self PoolPatchRef) (_retval int, _err error) {
+func (_class PoolPatchClass) GetSize(sessionID SessionRef, self PoolPatchRef) (_retval int64, _err error) {
 	_method := "pool_patch.get_size"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

@@ -78,13 +78,13 @@ type VIFRecord struct {
 	// ethernet MAC address of virtual interface, as exposed to guest
 	MAC string
 	// MTU in octets
-	MTU int
+	MTU int64
 	// additional configuration
 	OtherConfig map[string]string
 	// is the device currently attached (erased on reboot)
 	CurrentlyAttached bool
 	// error/success code associated with last attach-operation (erased on reboot)
-	StatusCode int
+	StatusCode int64
 	// error/success information associated with last attach-operation status (erased on reboot)
 	StatusDetail string
 	// Device runtime properties
@@ -853,7 +853,7 @@ func (_class VIFClass) GetStatusDetail(sessionID SessionRef, self VIFRef) (_retv
 }
 
 // GetStatusCode Get the status_code field of the given VIF.
-func (_class VIFClass) GetStatusCode(sessionID SessionRef, self VIFRef) (_retval int, _err error) {
+func (_class VIFClass) GetStatusCode(sessionID SessionRef, self VIFRef) (_retval int64, _err error) {
 	_method := "VIF.get_status_code"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
@@ -910,7 +910,7 @@ func (_class VIFClass) GetOtherConfig(sessionID SessionRef, self VIFRef) (_retva
 }
 
 // GetMTU Get the MTU field of the given VIF.
-func (_class VIFClass) GetMTU(sessionID SessionRef, self VIFRef) (_retval int, _err error) {
+func (_class VIFClass) GetMTU(sessionID SessionRef, self VIFRef) (_retval int64, _err error) {
 	_method := "VIF.get_MTU"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {

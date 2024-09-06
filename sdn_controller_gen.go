@@ -37,7 +37,7 @@ type SDNControllerRecord struct {
 	// IP address of the controller
 	Address string
 	// TCP port of the controller
-	Port int
+	Port int64
 }
 
 type SDNControllerRef string
@@ -93,8 +93,8 @@ func (_class SDNControllerClass) Forget(sessionID SessionRef, self SDNController
 }
 
 // Introduce Introduce an SDN controller to the pool.
-func (_class SDNControllerClass) Introduce(sessionID SessionRef, protocol SdnControllerProtocol, address string, port int) (_retval SDNControllerRef, _err error) {
-	_method := "SDN_controller.introduce"
+func (_class SDNControllerClass) Introduce(sessionID SessionRef, protocol SdnControllerProtocol, address string, port int64) (_retval SDNControllerRef, _err error) {
+	_method := "SDN_controller.int64roduce"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
 		return
@@ -120,7 +120,7 @@ func (_class SDNControllerClass) Introduce(sessionID SessionRef, protocol SdnCon
 }
 
 // GetPort Get the port field of the given SDN_controller.
-func (_class SDNControllerClass) GetPort(sessionID SessionRef, self SDNControllerRef) (_retval int, _err error) {
+func (_class SDNControllerClass) GetPort(sessionID SessionRef, self SDNControllerRef) (_retval int64, _err error) {
 	_method := "SDN_controller.get_port"
 	_sessionIDArg, _err := convertSessionRefToXen(fmt.Sprintf("%s(%s)", _method, "session_id"), sessionID)
 	if _err != nil {
