@@ -54,6 +54,10 @@ func (client *Client) APICall(method string, params ...interface{}) (result APIR
 	return
 }
 
+func (c *Client) Close() error {
+	return c.rpc.Close()
+}
+
 func NewClient(url string, transport *http.Transport) (*Client, error) {
 	if transport == nil {
 		transport = &http.Transport{
